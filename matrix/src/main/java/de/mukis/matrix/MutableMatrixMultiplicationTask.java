@@ -35,7 +35,7 @@ public class MutableMatrixMultiplicationTask extends RecursiveAction {
 	@Override
 	protected void compute() {
 		if (a.getColumnDimension() != b.getRowDimension()) {
-			throw new IllegalStateException("a.cols != b.rows " + a.getColumnDimension() + " != " + b.getRowDimension());
+			throw new IllegalStateException("Matrix inner dimensions must agree. " + a.getColumnDimension() + " != " + b.getRowDimension());
 		}
 		if (rows < THRESHOLD && cols < THRESHOLD) {
 			matrixMultiplication();

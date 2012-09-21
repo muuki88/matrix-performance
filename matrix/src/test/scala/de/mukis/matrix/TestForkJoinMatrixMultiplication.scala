@@ -53,18 +53,12 @@ class TestForkJoinMatrixMultiplication extends FunSuite with ShouldMatchers {
   test("Fork Join Task Big") {
     // Memory problem -> scalatest increase memory. Or Scala?!
     val m1 = 500
-    val n1 = 4000
-    val m2 = 4000
+    val nm = 4000
     val n2 = 800
 
-    val values01: Array[Array[Double]] = new Array(m1)
-    fillSampleArray(values01, m1, n1)
-    val values02: Array[Array[Double]] = new Array(m2)
-    fillSampleArray(values02, m2, n2)
-
     val pool = new ForkJoinPool
-    val a2 = new Matrix(values01)
-    val b2 = new Matrix(values02)
+    val a2 = SampleDataFactory.getSampleMatrix(m1, nm)
+    val b2 = SampleDataFactory.getSampleMatrix(nm, n2)
     val des2 = new Matrix(a2.getRowDimension, b2.getColumnDimension)
 
     val task = new MutableMatrixMultiplicationTask(a2, b2, des2)
@@ -75,13 +69,4 @@ class TestForkJoinMatrixMultiplication extends FunSuite with ShouldMatchers {
     des2 should be equals (a2.times(b2))
   }
 
-  private def fillSampleArray(array: Array[Array[Double]], m: Int, n: Int) {
-    for (i <- 0 until m) {
-      val value: Array[Double] = new Array(n)
-      for (j <- 0 until n) {
-        value(j) = scala.math.random * 100
-      }
-      array(i) = value
-    }
-  }
 }
