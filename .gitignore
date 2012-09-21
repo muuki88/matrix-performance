@@ -1,0 +1,10 @@
+# Maven stuff
+target/
+
+# Java stuff
+*.class
+
+# Eclipse stuff
+.settings
+.classpath
+.project
