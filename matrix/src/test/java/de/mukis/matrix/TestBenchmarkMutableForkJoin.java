@@ -22,32 +22,33 @@ public class TestBenchmarkMutableForkJoin {
 	private Matrix a;
 	private Matrix b;
 	private Matrix des;
+	private int threshold = 100;
 
 	@Test
 	@BenchmarkOptions(benchmarkRounds = 20, warmupRounds = 10)
 	public void testSmallelst() {
-		init(100, 100, 100);
+		init(100, 100, 100, 1000);
 		runTest();
 	}
 
 	@Test
 	@BenchmarkOptions(benchmarkRounds = 10, warmupRounds = 2)
 	public void testSmall() {
-		init(500, 500, 500);
+		init(500, 500, 500, 1000);
 		runTest();
 	}
 
 	@Test
 	@BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 0)
 	public void testNormal() {
-		init(1000, 1000, 1000);
+		init(1000, 1000, 1000, 1000);
 		runTest();
 	}
 
 	private void runTest() {
 		Matrix des = SampleDataFactory.getEmptyResultMatrix(a, b);
 		ForkJoinPool pool = new ForkJoinPool();
-		MutableMatrixMultiplicationTask task = new MutableMatrixMultiplicationTask(a, b, des);
+		MutableMatrixMultiplicationTask task = new MutableMatrixMultiplicationTask(a, b, des, threshold);
 		pool.execute(task);
 		pool.shutdown();
 		try {
@@ -57,10 +58,11 @@ public class TestBenchmarkMutableForkJoin {
 		}
 	}
 
-	private void init(int m, int nm, int n) {
+	private void init(int m, int nm, int n, int threshold) {
 		a = SampleDataFactory.getSampleMatrix(m, nm);
 		b = SampleDataFactory.getSampleMatrix(nm, n);
 		des = SampleDataFactory.getEmptyResultMatrix(a, b);
+		this.threshold = threshold;
 	}
 
 }

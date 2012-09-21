@@ -18,6 +18,9 @@ public class CaliperMutableForkJoinBenchmark extends SimpleBenchmark {
 	@Param({ "100", "1000" })
 	private int n2;
 
+	@Param({ "100", "500", "1000" })
+	private int threshold;
+
 	private Matrix a;
 	private Matrix b;
 
@@ -31,7 +34,7 @@ public class CaliperMutableForkJoinBenchmark extends SimpleBenchmark {
 		for (int i = 0; i < reps; i++) {
 			Matrix des = SampleDataFactory.getEmptyResultMatrix(a, b);
 			ForkJoinPool pool = new ForkJoinPool();
-			MutableMatrixMultiplicationTask task = new MutableMatrixMultiplicationTask(a, b, des);
+			MutableMatrixMultiplicationTask task = new MutableMatrixMultiplicationTask(a, b, des, threshold);
 			pool.execute(task);
 			pool.shutdown();
 			try {

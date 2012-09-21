@@ -7,7 +7,7 @@ import Jama.Matrix;
 public class MutableMatrixMultiplicationTask extends RecursiveAction {
 
 	private static final long serialVersionUID = 1727280960228146674L;
-	protected static int THRESHOLD = 100;
+
 	private final Matrix a;
 	private final Matrix b;
 	private final Matrix des;
@@ -18,7 +18,11 @@ public class MutableMatrixMultiplicationTask extends RecursiveAction {
 	/** How many rows and columns should be computed */
 	private final int rows, cols;
 
-	public MutableMatrixMultiplicationTask(Matrix a, Matrix b, Matrix des, int x, int y, int rows, int cols) {
+	/** On which size should the matrix be split up */
+	private final int threshold;
+
+	// TODO implement builder pattern here
+	public MutableMatrixMultiplicationTask(Matrix a, Matrix b, Matrix des, int x, int y, int rows, int cols, int threshold) {
 		this.a = a;
 		this.b = b;
 		this.des = des;
@@ -26,10 +30,11 @@ public class MutableMatrixMultiplicationTask extends RecursiveAction {
 		this.y = y;
 		this.rows = rows;
 		this.cols = cols;
+		this.threshold = threshold;
 	}
 
-	public MutableMatrixMultiplicationTask(Matrix a, Matrix b, Matrix des) {
-		this(a, b, des, 0, 0, a.getRowDimension(), b.getColumnDimension());
+	public MutableMatrixMultiplicationTask(Matrix a, Matrix b, Matrix des, int threshold) {
+		this(a, b, des, 0, 0, a.getRowDimension(), b.getColumnDimension(), threshold);
 	}
 
 	@Override
@@ -37,7 +42,7 @@ public class MutableMatrixMultiplicationTask extends RecursiveAction {
 		if (a.getColumnDimension() != b.getRowDimension()) {
 			throw new IllegalStateException("Matrix inner dimensions must agree. " + a.getColumnDimension() + " != " + b.getRowDimension());
 		}
-		if (rows < THRESHOLD && cols < THRESHOLD) {
+		if (rows < threshold && cols < threshold) {
 			matrixMultiplication();
 		} else {
 			if (rows > cols) {
@@ -45,8 +50,8 @@ public class MutableMatrixMultiplicationTask extends RecursiveAction {
 				int rowsT1 = rows / 2;
 				int rowsT2 = rows - rowsT1;
 				int xT2 = x + rowsT1;
-				MutableMatrixMultiplicationTask t1 = new MutableMatrixMultiplicationTask(a, b, des, x, y, rowsT1, cols);
-				MutableMatrixMultiplicationTask t2 = new MutableMatrixMultiplicationTask(a, b, des, xT2, y, rowsT2, cols);
+				MutableMatrixMultiplicationTask t1 = new MutableMatrixMultiplicationTask(a, b, des, x, y, rowsT1, cols, threshold);
+				MutableMatrixMultiplicationTask t2 = new MutableMatrixMultiplicationTask(a, b, des, xT2, y, rowsT2, cols, threshold);
 				invokeAll(t1, t2);
 
 			} else {
@@ -54,8 +59,8 @@ public class MutableMatrixMultiplicationTask extends RecursiveAction {
 				int colsT1 = cols / 2;
 				int colsT2 = cols - colsT1;
 				int yT2 = y + colsT1;
-				MutableMatrixMultiplicationTask t1 = new MutableMatrixMultiplicationTask(a, b, des, x, y, rows, colsT1);
-				MutableMatrixMultiplicationTask t2 = new MutableMatrixMultiplicationTask(a, b, des, x, yT2, rows, colsT2);
+				MutableMatrixMultiplicationTask t1 = new MutableMatrixMultiplicationTask(a, b, des, x, y, rows, colsT1, threshold);
+				MutableMatrixMultiplicationTask t2 = new MutableMatrixMultiplicationTask(a, b, des, x, yT2, rows, colsT2, threshold);
 				invokeAll(t1, t2);
 			}
 		}
