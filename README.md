@@ -56,6 +56,16 @@ benchmark: Jama
 
 ## Fork Join naive and mutable implementation Benchmark
 
+TestBenchmarkJama.testSmallelst: [measured 20 out of 30 rounds, threads: 1 (sequential)]
+ round: 0.00 [+- 0.00], round.gc: 0.00 [+- 0.00], GC.calls: 0, GC.time: 0.00, time.total: 0.09, time.warmup: 0.05, time.bench: 0.04
+TestBenchmarkJama.testSmall: [measured 10 out of 12 rounds, threads: 1 (sequential)]
+ round: 0.19 [+- 0.00], round.gc: 0.00 [+- 0.00], GC.calls: 3, GC.time: 0.02, time.total: 2.22, time.warmup: 0.37, time.bench: 1.85
+TestBenchmarkJama.testNormal: [measured 5 out of 5 rounds, threads: 1 (sequential)]
+ round: 1.86 [+- 0.07], round.gc: 0.00 [+- 0.00], GC.calls: 3, GC.time: 0.04, time.total: 9.32, time.warmup: 0.00, time.bench: 9.32
+
+
+### Google Calipe Results 
+
   n2   nm   m1 memoryMax      us linear runtime
  100   10  100  -Xmx512M    1.370 =
  100   10  100 -Xmx1024M      749 =
@@ -97,6 +107,16 @@ benchmark: Jama
 vm: java
 trial: 0
 benchmark: MutableForkJoin
+
+
+### JUnitBenchmark Results
+
+TestBenchmarkMutableForkJoin.testSmall: [measured 10 out of 12 rounds, threads: 1 (sequential)]
+ round: 0.20 [+- 0.09], round.gc: 0.00 [+- 0.00], GC.calls: 2, GC.time: 0.02, time.total: 2.42, time.warmup: 0.40, time.bench: 2.01
+TestBenchmarkMutableForkJoin.testNormal: [measured 5 out of 5 rounds, threads: 1 (sequential)]
+ round: 6.01 [+- 0.53], round.gc: 0.00 [+- 0.00], GC.calls: 1, GC.time: 0.02, time.total: 30.07, time.warmup: 0.00, time.bench: 30.07
+TestBenchmarkMutableForkJoin.testSmallelst: [measured 20 out of 30 rounds, threads: 1 (sequential)]
+ round: 0.00 [+- 0.00], round.gc: 0.00 [+- 0.00], GC.calls: 1, GC.time: 0.01, time.total: 0.14, time.warmup: 0.06, time.bench: 0.08
 
 
 ## Google Caliper

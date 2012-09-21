@@ -6,7 +6,7 @@ import com.google.caliper.Param;
 import com.google.caliper.Runner;
 import com.google.caliper.SimpleBenchmark;
 
-public class JamaBenchmark extends SimpleBenchmark {
+public class CaliperJamaBenchmark extends SimpleBenchmark {
 
 	@Param({ "100", "1000", })
 	private int m1;
@@ -33,6 +33,6 @@ public class JamaBenchmark extends SimpleBenchmark {
 	public static void main(String[] args) throws Exception {
 		// programm arguments
 		// -JmemoryMax=-Xmx512M,-Xmx1024M,-Xmx2048M
-		Runner.main(JamaBenchmark.class, args);
+		Runner.main(CaliperJamaBenchmark.class, args);
 	}
 }

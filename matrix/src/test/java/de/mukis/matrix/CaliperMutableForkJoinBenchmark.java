@@ -9,7 +9,7 @@ import com.google.caliper.Param;
 import com.google.caliper.Runner;
 import com.google.caliper.SimpleBenchmark;
 
-public class MutableForkJoinBenchmark extends SimpleBenchmark {
+public class CaliperMutableForkJoinBenchmark extends SimpleBenchmark {
 
 	@Param({ "100", "1000" })
 	private int m1;
@@ -43,6 +43,6 @@ public class MutableForkJoinBenchmark extends SimpleBenchmark {
 	}
 
 	public static void main(String[] args) throws Exception {
-		Runner.main(MutableForkJoinBenchmark.class, args);
+		Runner.main(CaliperMutableForkJoinBenchmark.class, args);
 	}
 }
