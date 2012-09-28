@@ -2,6 +2,7 @@ This is a small project to evaluate matrix multiplication performance
 with various implementations. The benchmarks are created with [Google Caliper](http://code.google.com/p/caliper/).
 
 * Reference implementation: [Jama](http://math.nist.gov/javanumerics/jama/)
+* Reference implementation: [Colt](http://acs.lbl.gov/software/colt/)
 * Mutable ForkJoin implementation with [Java 7 Fork Join Framework](http://docs.oracle.com/javase/tutorial/essential/concurrency/forkjoin.html)
 
 coming soon...
@@ -11,6 +12,8 @@ coming soon...
 * Scala Akka implementation
 
 ## Jama Benchmark
+
+### Google Caliper Results 
 
 ```bash
 
@@ -57,6 +60,79 @@ trial: 0
 benchmark: Jama
 ```
 
+### JUnitBenchmark Results
+
+```bash
+
+TestBenchmarkJama.testSmallelst: [measured 20 out of 30 rounds, threads: 1 (sequential)]
+ round: 0.00 [+- 0.00], round.gc: 0.00 [+- 0.00], GC.calls: 0, GC.time: 0.00, time.total: 0.11, time.warmup: 0.06, time.bench: 0.05
+TestBenchmarkJama.testSmall: [measured 10 out of 12 rounds, threads: 1 (sequential)]
+ round: 0.21 [+- 0.02], round.gc: 0.00 [+- 0.00], GC.calls: 3, GC.time: 0.03, time.total: 2.52, time.warmup: 0.45, time.bench: 2.07
+TestBenchmarkJama.testNormal: [measured 5 out of 5 rounds, threads: 1 (sequential)]
+ round: 1.84 [+- 0.06], round.gc: 0.00 [+- 0.00], GC.calls: 3, GC.time: 0.05, time.total: 9.22, time.warmup: 0.00, time.bench: 9.22
+```
+
+## Colt Benchmark
+
+### Google Caliper Results 
+
+```bash
+
+  m1   n2   nm memoryMax      us linear runtime
+ 100  100   10  -Xmx512M     165 =
+ 100  100   10 -Xmx1024M     166 =
+ 100  100   10 -Xmx2048M     164 =
+ 100  100  100  -Xmx512M    1.484 =
+ 100  100  100 -Xmx1024M    1.481 =
+ 100  100  100 -Xmx2048M    1.596 =
+ 100  100 1000  -Xmx512M   16.522 =
+ 100  100 1000 -Xmx1024M   14.566 =
+ 100  100 1000 -Xmx2048M   15.450 =
+ 100 1000   10  -Xmx512M    1.828 =
+ 100 1000   10 -Xmx1024M    1.747 =
+ 100 1000   10 -Xmx2048M    1.790 =
+ 100 1000  100  -Xmx512M   14.978 =
+ 100 1000  100 -Xmx1024M   16.461 =
+ 100 1000  100 -Xmx2048M   14.871 =
+ 100 1000 1000  -Xmx512M  180.866 ==
+ 100 1000 1000 -Xmx1024M  186.779 ==
+ 100 1000 1000 -Xmx2048M  169.734 ==
+1000  100   10  -Xmx512M    2.233 =
+1000  100   10 -Xmx1024M    2.219 =
+1000  100   10 -Xmx2048M    2.388 =
+1000  100  100  -Xmx512M   15.591 =
+1000  100  100 -Xmx1024M   15.660 =
+1000  100  100 -Xmx2048M   17.051 =
+1000  100 1000  -Xmx512M  206.732 ==
+1000  100 1000 -Xmx1024M  194.999 ==
+1000  100 1000 -Xmx2048M  202.229 ==
+1000 1000   10  -Xmx512M   37.404 =
+1000 1000   10 -Xmx1024M   36.183 =
+1000 1000   10 -Xmx2048M   35.958 =
+1000 1000  100  -Xmx512M  177.610 ==
+1000 1000  100 -Xmx1024M  173.825 ==
+1000 1000  100 -Xmx2048M  175.074 ==
+1000 1000 1000  -Xmx512M 1.916.253 =========================
+1000 1000 1000 -Xmx1024M 2.219.389 ==============================
+1000 1000 1000 -Xmx2048M 1.945.212 ==========================
+
+vm: java
+trial: 0
+benchmark: Colt
+```
+
+### JUnitBenchmark Results
+
+```bash
+
+TestBenchmarkColt.testSmallelst: [measured 20 out of 30 rounds, threads: 1 (sequential)]
+ round: 0.01 [+- 0.01], round.gc: 0.00 [+- 0.00], GC.calls: 0, GC.time: 0.00, time.total: 0.22, time.warmup: 0.14, time.bench: 0.08
+TestBenchmarkColt.testSmall: [measured 10 out of 12 rounds, threads: 1 (sequential)]
+ round: 0.38 [+- 0.01], round.gc: 0.00 [+- 0.00], GC.calls: 3, GC.time: 0.02, time.total: 4.65, time.warmup: 0.83, time.bench: 3.82
+TestBenchmarkColt.testNormal: [measured 5 out of 5 rounds, threads: 1 (sequential)]
+ round: 11.62 [+- 0.13], round.gc: 0.00 [+- 0.00], GC.calls: 4, GC.time: 0.08, time.total: 58.12, time.warmup: 0.00, time.bench: 58.12
+```
+
 ## Fork Join naive and mutable implementation Benchmark
 
 ```bash
@@ -69,7 +145,7 @@ TestBenchmarkJama.testNormal: [measured 5 out of 5 rounds, threads: 1 (sequentia
  round: 1.86 [+- 0.07], round.gc: 0.00 [+- 0.00], GC.calls: 3, GC.time: 0.04, time.total: 9.32, time.warmup: 0.00, time.bench: 9.32
 ```
 
-### Google Calipe Results 
+### Google Caliper Results 
 
 ```bash
 
