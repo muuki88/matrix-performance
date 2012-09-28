@@ -1,12 +1,12 @@
 package de.mukis.matrix;
 
-import Jama.Matrix;
+import cern.colt.matrix.DoubleMatrix2D;
 
 import com.google.caliper.Param;
 import com.google.caliper.Runner;
 import com.google.caliper.SimpleBenchmark;
 
-public class CaliperJamaBenchmark extends SimpleBenchmark {
+public class CaliperColtBenchmark extends SimpleBenchmark {
 
 	@Param({ "100", "1000", })
 	private int m1;
@@ -15,18 +15,20 @@ public class CaliperJamaBenchmark extends SimpleBenchmark {
 	@Param({ "100", "1000" })
 	private int n2;
 
-	private Matrix a;
-	private Matrix b;
+	private DoubleMatrix2D a;
+	private DoubleMatrix2D b;
+	private DoubleMatrix2D c;
 
 	@Override
 	protected void setUp() throws Exception {
-		a = SampleDataFactory.getSampleJamaMatrix(m1, nm);
-		b = SampleDataFactory.getSampleJamaMatrix(nm, n2);
+		a = SampleDataFactory.getSampleColtDenseMatrix(m1, nm);
+		b = SampleDataFactory.getSampleColtDenseMatrix(nm, n2);
+		c = SampleDataFactory.getEmptyResultMatrix(a, b);
 	}
 
-	public void timeJama(int reps) {
+	public void timeColt(int reps) {
 		for (int i = 0; i < reps; i++) {
-			a.times(b);
+			a.zMult(b, c);
 		}
 	}
 

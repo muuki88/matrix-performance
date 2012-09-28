@@ -26,8 +26,8 @@ public class CaliperMutableForkJoinBenchmark extends SimpleBenchmark {
 
 	@Override
 	protected void setUp() throws Exception {
-		a = SampleDataFactory.getSampleMatrix(m1, nm);
-		b = SampleDataFactory.getSampleMatrix(nm, n2);
+		a = SampleDataFactory.getSampleJamaMatrix(m1, nm);
+		b = SampleDataFactory.getSampleJamaMatrix(nm, n2);
 	}
 
 	public void timeMutableForkJoin(int reps) {

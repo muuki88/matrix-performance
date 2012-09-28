@@ -20,7 +20,7 @@ class TestForkJoinMatrixMultiplication extends FunSuite with ShouldMatchers {
     val b1 = new Matrix(3, 2, 2)
     val des1 = new Matrix(3, 2)
 
-    val t1 = new MutableMatrixMultiplicationTask(a1, b1, des1)
+    val t1 = new MutableMatrixMultiplicationTask(a1, b1, des1, 1000)
     t1.compute
 
     des1 should be equals (a1.times(b1))
@@ -30,7 +30,7 @@ class TestForkJoinMatrixMultiplication extends FunSuite with ShouldMatchers {
     val b2 = new Matrix(values02)
     val des2 = new Matrix(a2.getRowDimension, b2.getColumnDimension)
 
-    val t2 = new MutableMatrixMultiplicationTask(a2, b2, des2)
+    val t2 = new MutableMatrixMultiplicationTask(a2, b2, des2, 1000)
     t2.compute()
 
     des2 should be equals (a2.times(b2))
@@ -42,7 +42,7 @@ class TestForkJoinMatrixMultiplication extends FunSuite with ShouldMatchers {
     val b2 = new Matrix(values02)
     val des2 = new Matrix(a2.getRowDimension, b2.getColumnDimension)
 
-    val task = new MutableMatrixMultiplicationTask(a2, b2, des2)
+    val task = new MutableMatrixMultiplicationTask(a2, b2, des2, 1000)
     pool.execute(task)
     pool.shutdown()
     pool.awaitTermination(10, TimeUnit.SECONDS);
@@ -57,11 +57,11 @@ class TestForkJoinMatrixMultiplication extends FunSuite with ShouldMatchers {
     val n2 = 800
 
     val pool = new ForkJoinPool
-    val a2 = SampleDataFactory.getSampleMatrix(m1, nm)
-    val b2 = SampleDataFactory.getSampleMatrix(nm, n2)
+    val a2 = SampleDataFactory.getSampleJamaMatrix(m1, nm)
+    val b2 = SampleDataFactory.getSampleJamaMatrix(nm, n2)
     val des2 = new Matrix(a2.getRowDimension, b2.getColumnDimension)
 
-    val task = new MutableMatrixMultiplicationTask(a2, b2, des2)
+    val task = new MutableMatrixMultiplicationTask(a2, b2, des2, 1000)
     pool.execute(task)
     pool.shutdown()
     pool.awaitTermination(50, TimeUnit.SECONDS);

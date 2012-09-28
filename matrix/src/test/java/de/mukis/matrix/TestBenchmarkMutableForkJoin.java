@@ -59,8 +59,8 @@ public class TestBenchmarkMutableForkJoin {
 	}
 
 	private void init(int m, int nm, int n, int threshold) {
-		a = SampleDataFactory.getSampleMatrix(m, nm);
-		b = SampleDataFactory.getSampleMatrix(nm, n);
+		a = SampleDataFactory.getSampleJamaMatrix(m, nm);
+		b = SampleDataFactory.getSampleJamaMatrix(nm, n);
 		des = SampleDataFactory.getEmptyResultMatrix(a, b);
 		this.threshold = threshold;
 	}
