@@ -135,15 +135,6 @@ TestBenchmarkColt.testNormal: [measured 5 out of 5 rounds, threads: 1 (sequentia
 
 ## Fork Join naive and mutable implementation Benchmark
 
-```bash
-
-TestBenchmarkJama.testSmallelst: [measured 20 out of 30 rounds, threads: 1 (sequential)]
- round: 0.00 [+- 0.00], round.gc: 0.00 [+- 0.00], GC.calls: 0, GC.time: 0.00, time.total: 0.09, time.warmup: 0.05, time.bench: 0.04
-TestBenchmarkJama.testSmall: [measured 10 out of 12 rounds, threads: 1 (sequential)]
- round: 0.19 [+- 0.00], round.gc: 0.00 [+- 0.00], GC.calls: 3, GC.time: 0.02, time.total: 2.22, time.warmup: 0.37, time.bench: 1.85
-TestBenchmarkJama.testNormal: [measured 5 out of 5 rounds, threads: 1 (sequential)]
- round: 1.86 [+- 0.07], round.gc: 0.00 [+- 0.00], GC.calls: 3, GC.time: 0.04, time.total: 9.32, time.warmup: 0.00, time.bench: 9.32
-```
 
 ### Google Caliper Results 
 
