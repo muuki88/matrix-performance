@@ -72,6 +72,43 @@ TestBenchmarkJama.testNormal: [measured 5 out of 5 rounds, threads: 1 (sequentia
  round: 1.84 [+- 0.06], round.gc: 0.00 [+- 0.00], GC.calls: 3, GC.time: 0.05, time.total: 9.22, time.warmup: 0.00, time.bench: 9.22
 ```
 
+### StopWatch Results
+
+```bash
+
+## Settings
+vm args: [-Xmx2048m, -Dfile.encoding=UTF-8]
+#### Benchmark #####
+Dimension: 1000
+Creating matrices took: 68 ms
+## Multiplication 
+
+Milliseconds: 1203
+Seconds: 1
+Minutes: 0
+#### Benchmark #####
+Dimension: 2000
+Creating matrices took: 214 ms
+## Multiplication 
+
+Milliseconds: 8950
+Seconds: 8
+Minutes: 0
+#### Benchmark #####
+Dimension: 5000
+Creating matrices took: 1399 ms
+## Multiplication 
+
+Milliseconds: 133652
+Seconds: 133
+Minutes: 2
+#### Benchmark #####
+Dimension: 10000
+Creating matrices took: 6255 ms
+OutOfMemoryException
+
+```
+
 ## Colt Benchmark
 
 ### Google Caliper Results 
