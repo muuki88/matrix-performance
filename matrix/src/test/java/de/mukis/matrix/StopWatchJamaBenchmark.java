@@ -9,13 +9,13 @@ import Jama.Matrix;
 
 import com.google.common.base.Stopwatch;
 
-public class SystemNanoJamaBenchmark {
+public class StopWatchJamaBenchmark {
 
     private Matrix a;
     private Matrix b;
     private final int m1, nm, n2;
 
-    public SystemNanoJamaBenchmark(int m1, int nm, int n2) {
+    public StopWatchJamaBenchmark(int m1, int nm, int n2) {
         this.m1 = m1;
         this.nm = nm;
         this.n2 = n2;
@@ -39,9 +39,11 @@ public class SystemNanoJamaBenchmark {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+        Thread.sleep(2000); // wait 2seconds before start
         RuntimeMXBean RuntimemxBean = ManagementFactory.getRuntimeMXBean();
         List<String> arguments = RuntimemxBean.getInputArguments();
+
         System.out.println("## Settings");
         System.out.println("vm args: " + arguments);
         Stopwatch watch = new Stopwatch();
@@ -52,7 +54,7 @@ public class SystemNanoJamaBenchmark {
             System.out.println("#### Benchmark #####");
             System.out.println("Dimension: " + dim);
             watch.start();
-            SystemNanoJamaBenchmark b1 = new SystemNanoJamaBenchmark(dim, dim, dim);
+            StopWatchJamaBenchmark b1 = new StopWatchJamaBenchmark(dim, dim, dim);
             watch.stop();
             System.out.println("Creating matrices took: " + watch.elapsedMillis() + " ms");
             watch.reset();
@@ -65,7 +67,6 @@ public class SystemNanoJamaBenchmark {
             b1.run(1);
             watch.stop();
             System.out.println("## Multiplication ");
-            System.out.println();
             System.out.println("Milliseconds: " + watch.elapsedMillis());
             System.out.println("Seconds: " + watch.elapsedTime(TimeUnit.SECONDS));
             System.out.println("Minutes: " + watch.elapsedTime(TimeUnit.MINUTES));
